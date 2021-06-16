@@ -94,8 +94,9 @@ pipeline:
       - yarn build:themes
       - yarn dist:presets
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -110,8 +111,9 @@ pipeline:
         echo "Transfer complete" ;
         fi
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -125,8 +127,9 @@ pipeline:
       - echo ${DRONE_TAG=${DRONE_COMMIT_BRANCH=rc}} > dist/website/.version
       - echo ${DRONE_COMMIT_SHA} > dist/website/.commit
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -138,8 +141,9 @@ pipeline:
       - zip ${DRONE_REPO_NAME}-${DRONE_TAG}.zip .
       - cp dist/packages/${DRONE_REPO_NAME}-${DRONE_TAG}-sri.json .
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -153,8 +157,9 @@ pipeline:
       - sha1
     secrets: [GITHUB_RELEASE_API_KEY]
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -168,8 +173,9 @@ pipeline:
       - echo ${DRONE_TAG=${DRONE_COMMIT_BRANCH=rc}} > dist/website/.version
       - echo ${DRONE_COMMIT_SHA} > dist/website/.commit
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -179,8 +185,9 @@ pipeline:
       - cd dist/website
       - zip ${DRONE_REPO_NAME}-${DRONE_TAG}-archive.zip .
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
@@ -192,8 +199,9 @@ pipeline:
       - sha1
     secrets: [GITHUB_RELEASE_API_KEY]
     when:
-      event: [tag]
-      branch: refs/tags/v2
+      ref:
+        include:
+          - refs/tags/v2*
       matrix:
         TEST: deploy
 
