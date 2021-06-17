@@ -118,6 +118,7 @@ pipeline:
     commands:
       - cd dist/website
       - zip -r ${DRONE_REPO_NAME}-${DRONE_TAG}.zip .
+      - mv ${DRONE_REPO_NAME}-${DRONE_TAG}.zip ../../
     when:
       ref:
         include:
@@ -161,6 +162,7 @@ pipeline:
     commands:
       - cd dist/website
       - zip -r ${DRONE_REPO_NAME}-${DRONE_TAG}-archive.zip .
+      - mv ${DRONE_REPO_NAME}-${DRONE_TAG}-archive.zip ../../
     when:
       ref:
         include:
