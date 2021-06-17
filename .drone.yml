@@ -20,10 +20,6 @@ clone:
 
 matrix:
   TEST:
-    - audit
-    - conventions
-    - examples
-    - size
     - deploy
 
 pipeline:
@@ -121,7 +117,7 @@ pipeline:
     image: ralexsander/alpine-zip
     commands:
       - cd dist/website
-      - zip ${DRONE_REPO_NAME}-${DRONE_TAG}.zip .
+      - zip -r ${DRONE_REPO_NAME}-${DRONE_TAG}.zip .
       - cp dist/packages/${DRONE_REPO_NAME}-${DRONE_TAG}-sri.json .
     when:
       ref:
@@ -166,7 +162,7 @@ pipeline:
     image: ralexsander/alpine-zip
     commands:
       - cd dist/website
-      - zip ${DRONE_REPO_NAME}-${DRONE_TAG}-archive.zip .
+      - zip -r ${DRONE_REPO_NAME}-${DRONE_TAG}-archive.zip .
     when:
       ref:
         include:
