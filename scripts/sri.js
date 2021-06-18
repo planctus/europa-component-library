@@ -20,23 +20,30 @@ const files = glob.sync(
 
 // Compute SRI hashes
 const hashes = {};
-files.forEach((file) => {
+files.forEach(file => {
   const data = fs.readFileSync(file);
   const integrityObj = ssri.fromData(data, {
-    algorithms: ['sha256', 'sha384', 'sha512'],
+    algorithms: ['sha256', 'sha384', 'sha512']
   });
   const filename = path.basename(file);
   hashes[filename] = [
     integrityObj.sha256[0].source,
     integrityObj.sha384[0].source,
-    integrityObj.sha512[0].source,
+    integrityObj.sha512[0].source
   ];
 });
-
 // Export to JSON
-fs.writeFileSync(
+fs.writeFile(
   `${path.resolve(__dirname, '../dist/packages')}/${
     process.env.DRONE_REPO_NAME
   }-${process.env.DRONE_TAG}-sri.json`,
-  prettier.format(JSON.stringify(hashes), { parser: 'json' })
+  prettier.format(JSON.stringify(hashes), { parser: 'json' }),
+  'utf-8',
+  err => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('sri file written');
+    }
+  }
 );
